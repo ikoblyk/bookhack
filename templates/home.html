@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+  {% block content %}
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+<div class="card " style="width: 18rem;">
+  <img class="card-img-top" src="static/material-icon-library-0.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Download</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+ <div class="alert alert-success" role="alert">
+ Make sure the url is valid!
+</div>
+
+ <form class="form-inline" >
+       {% if logged %}
+     <input class="form-control mr-sm-2" type="text" placeholder="You should log in first" aria-label="Download">
+       </form>
+    </li>
+  </ul>
+  <div class="card-body">
+     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Download</button>
+  </div>
+</div>
+    </div>
+        <div class="col-sm">
+
+                                  <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://img.icons8.com/clouds/2x/google-drive.png" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Save to cloud</h5>
+    <p class="card-text">Save all of your book to your gdrive and enjoy reading on your mobile device or tablet.</p>
+     <a class="btn btn-default btn-google btn-block text btn-outline" href="google/login"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> log out Google</a>
+  </div>
+</div>
+
+      </div>
+  {% else %}
+     <input class="form-control mr-sm-2" type="text" placeholder="You should log in first" aria-label="Download" readonly>
+        </form>
+    </li>
+  </ul>
+  <div class="card-body">
+     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" disabled>Download</button>
+  </div>
+</div>
+    </div>
+  <div class="col-sm">
+
+                                  <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://img.icons8.com/clouds/2x/google-drive.png" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Save to cloud</h5>
+    <p class="card-text">Save all of your book to your gdrive and enjoy reading on your mobile device or tablet.</p>
+     <a class="btn btn-default btn-google btn-block text btn-outline" href="google/login"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> log in via Google</a>
+  </div>
+</div>
+
+      </div>
+  {% endif %}
+
+    <div class="col-sm">
+
+        <h5 class="card-header">Bookhack</h5>
+  <div class="card-body">
+    <h5 class="card-title">Meet Bookhack</h5>
+    <p class="card-text"> This tool automates the process of downloading a book from <a href="https://elib.nlu.org.ua/">elib.nlu.org.ua</a>
+    Instead of viewing pages one by one separately or trying to download them manually which is time consuming and boring process
+    you can now just paste the link to it and bookhack will do everything for you, so you can enjoy reading the books you love easily.
+    </p>
+    <a href="https://elib.nlu.org.ua/" class="btn btn-primary">Visit library</a>
+  </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+</body>
+</html>

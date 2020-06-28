@@ -1,0 +1,7 @@
+*.json
+google*.py
+.idea/
+__pycache__/
+ venv
+
+
