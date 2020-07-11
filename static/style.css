@@ -10,3 +10,29 @@ position: absolute;
   width: 100%;
   color: white;
 }
+
+
+.spinner-border m-5 {
+display: None;
+
+}
+
+.overflow-auto {
+height: 100px;
+}
+
+.done {
+ align-items: center;
+
+}
+
+.cont_txt {
+align-items: center;
+justify-content: center;
+}
+
+.page-footer {
+position: fixed;
+  left: 0;
+  bottom: 0;
+  }

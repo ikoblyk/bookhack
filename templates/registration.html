@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+<div class="card align-items-center" style="width: 18rem;">
+  <img class="card-img-top" src="static/material-icon-library-0.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Download</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+
+ <div class="alert" role="alert">
+
+</div>
+  <hr>
+    {{ wtf.quick_form(form) }}
+  <hr>
+       </li>
+  </ul>
+</div>
+    </div>
+    <div class="col-sm">
+
+        <h5 class="card-header">Bookhack</h5>
+  <div class="card-body">
+    <h5 class="card-title">Meet Bookhack</h5>
+    <p class="card-text"> This tool automates the process of downloading a book from <a href="https://elib.nlu.org.ua/">elib.nlu.org.ua</a>
+    Instead of viewing pages one by one separately or trying to download them manually which is time consuming and boring process
+    you can now just paste the link to it and bookhack will do everything for you, so you can enjoy reading the books you love easily.
+    </p>
+    <a href="https://elib.nlu.org.ua/" class="btn btn-primary">Visit library</a>
+  </div>
+    </div>
+  </div>
+  </div>
+{% endblock %}

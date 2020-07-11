@@ -1,0 +1,23 @@
+version: '3'
+services:
+  bookhack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app # the default directory for downloads is the project's directory called books
+    networks:
+      - app-network
+  selenium:
+    image: selenium/standalone-chrome:3.141.59-20200525
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge

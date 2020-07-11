@@ -3,5 +3,8 @@ google*.py
 .idea/
 __pycache__/
  venv
-
+Vagrantfile
+*.log
+.vagrant
+venv/*
 

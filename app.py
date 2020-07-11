@@ -1,36 +1,70 @@
-'''
-from flask import Flask, render_template
+
+from flask import Flask, request, render_template, Response, jsonify
+from model import URLForm
+from flask_bootstrap import Bootstrap
+import sys
+from time import sleep
+from subprocess import Popen, PIPE, STDOUT, DEVNULL
+from textwrap import dedent
 app = Flask(__name__)
+app.config.from_mapping(
+    SECRET_KEY=b'\xd6\x04\xbdj\xfe\xed$c\x1e@\xad\x0f\x13,@G')
+Bootstrap(app)
+app.debug = True
 
-@app.route('/')
-def hello_world():
-    return render_template('home.html')
-'''
+convert =False
+Done = True
 
-import functools
-import json
-import os
-
-import flask
-
-from authlib.client import OAuth2Session
-import google.oauth2.credentials
-import googleapiclient.discovery
-
-import google_auth
-
-app = flask.Flask(__name__)
-app.secret_key = os.environ.get("FN_FLASK_SECRET_KEY", default=False)
-
-app.register_blueprint(google_auth.app)
+def stream_template(template_name, **context):
+    app.update_template_context(context)
+    t = app.jinja_env.get_template(template_name)
+    rv = t.stream(context)
+    rv.disable_buffering()
+    return rv
 
 
+def generate(form):
+    with Popen([sys.executable or 'python3', '-u', '-c', dedent(f"""\
+        # dummy subprocess
+        from bookhack_ikoblyk.test import Work
+        w = Work('{form}', '/app/books')
+        w.run()
+        """)], stdin=DEVNULL, stdout=PIPE, stderr=STDOUT,
+               bufsize=1, universal_newlines=True) as p:
+        for line in p.stdout:
+            yield str(line)
+            sleep(0.5)
 
-@app.route('/')
-def index():
-    if google_auth.is_logged_in():
-        user_info = google_auth.get_user_info()
-        return '<div>You are currently logged in as ' + user_info['given_name'] + '<div><pre>' + json.dumps(user_info,indent=4) + "</pre>"
-
+@app.route('/', methods=['GET', 'POST'])
+def registration():
+    form = URLForm(request.form)
+    if request.method == 'POST' and form.validate_on_submit():
+        form_2 = form.url.data
+        rows = generate(form_2)
+        return Response(stream_template('wait.html', rows=rows))
     else:
-        return flask.render_template('home.html', logged=False, title='BookHack')
+        return render_template('registration.html', form=form)
+
+
+
+@app.route('/donate', methods=['GET', 'POST'])
+def donate():
+    return render_template('donate.html')
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    return render_template('contact.html')
+
+@app.route('/converting', methods=['POST'])
+def converting():
+    return jsonify({
+        'state': 'converting',
+    })
+
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
+
+
